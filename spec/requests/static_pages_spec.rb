@@ -1,14 +1,18 @@
 require 'spec_helper'
-
+ 
 describe "StaticPages" do
-  describe "home page"
-  it "should have content 'SimplePM'" do
-    visit "/static_pages/home"
-    page.should have_content("SimplePM")
+ subject { page }
+  describe "home page" do
+  before { visit root_path }
+   
+    it { should have_selector('title', text: 'Home') }
   end
-  describe "about page"
-  it "should have content 'About'" do
-    visit "/static_pages/about"
-    page.should have_content("About")
-  end
+
+  describe "about page" do
+   before { visit about_path }
+
+     it { should have_selector('title', text: 'About') }
+   end
 end
+
+
