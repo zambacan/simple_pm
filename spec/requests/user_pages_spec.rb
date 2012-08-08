@@ -42,7 +42,10 @@ describe "User Pages" do
   end
   describe "edit" do
     let(:user) { FactoryGirl.create(:user) }
-    before { visit edit_user_path(user) }
+    before do
+      sign_in user
+      visit edit_user_path(user) 
+    end
     describe "page" do
       it { should have_selector('h1', text: "Update your profile") }
       it { should have_selector('title', text: "Edit user") }
@@ -62,7 +65,7 @@ describe "User Pages" do
         click_button "Save changes"
       end
       it { should have_selector('title', text: new_name) }
-    it { should have_selector('div.alert.alert-success') }
+      it { should have_selector('div.alert.alert-success') }
       specify { user.reload.name.should == new_name }
       specify { user.reload.email.should == new_email }
     end
